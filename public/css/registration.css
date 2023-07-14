@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Belanosima', sans-serif;
+}
+
+.card-registration .select-input.form-control {
+	font-size: 1rem;
+	line-height: 2.15;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+}
+.card-registration .select-arrow {
+	top: 13px;
+}
+
+.select {
+	font-size: 1rem;
+    font-weight: bolder;
+	line-height: 2.15;
+	padding-left: 1.25em;
+	padding-right: 4.25em;
+	padding-top: 0.75em;
+	padding-bottom: 0.75em;
+    border-radius: 10px;
+}
+

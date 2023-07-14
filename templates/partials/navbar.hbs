@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark"
+  style="padding: 15px 0; position:fixed; top:0; left:0; z-index: 20; width: 100%">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/registration">Registration</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Student Details
+          </a>
+          <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.943);">
+            <li><a class="dropdown-item text-white" href="/students">All Student Data</a></li>
+            <li><a class="dropdown-item text-white" href="/students">Search Student</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-white" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Staff Details
+          </a>
+          <ul class="dropdown-menu" style="background-color: rgba(0, 0, 0, 0.943);">
+            <li><a class="dropdown-item text-white" href="/staff">All Staff Data</a></li>
+            <li><a class="dropdown-item text-white" href="/staff">Search Staff</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-white" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <a href="/login" class="btn btn-primary">Login</a>
+      </form>
+    </div>
+  </div>
+</nav>
