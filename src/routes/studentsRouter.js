@@ -3,6 +3,7 @@ const express = require('express');
 const StudentsDocument = require('../models/students');
 const CredentialsCollection = require('../models/userCredentials');
 const bcrypt = require('bcryptjs');
+const authentication = require('../middleware/authentication');
 
 // important variable declaration 
 const router = express.Router();
@@ -14,7 +15,7 @@ router.get('/', (request, response) => {
 })
 
 // This is aboutUs page
-router.get("/about", (request, response) => {
+router.get("/about", authentication, (request, response) => {
     response.render("about");
 })
 
@@ -40,25 +41,26 @@ router.post("/login", async (request, response) => {
         const user = await CredentialsCollection.findOne({ email });
         const comparePassword = await bcrypt.compare(password, user.password);
 
-        // generating the jwttoken for authorization
-        const generatedToken = await user.generateAuthToken();
-
-        // saving the jwttoken into the cookies
-        response.cookie("jwt", generatedToken, {
-            expires: new Date(Date.now() + 10000),
-            httpOnly: true
-        });
-
         if (!user) {
             response.status(200).render("login");
         } else {
             if (!comparePassword) {
                 response.status(200).render("login");
             } else {
+                // generating the jwttoken for authorization
+                const generatedToken = await user.generateAuthToken();
+
+
+                // saving the jwttoken into the cookies
+                response.cookie("jwt", generatedToken, {
+                    expires: new Date(Date.now() + 40 * 1000),
+                    httpOnly: true
+                });
                 response.status(200).render("index");
             }
         }
     } catch (error) {
+        console.error(error.message);
         response.status(400).render("login");
     }
 })
@@ -75,20 +77,20 @@ router.post("/signup", async (request, response) => {
             cPassword: cPassword
         });
 
-        // authorize the newStudent with the jsonwebtoken
-        const generatedToken = await userCredentials.generateAuthToken();
-
-        // saving the generatedToken into cookies
-        response.cookie("jwt", generatedToken, {
-            expires: new Date(Date.now() + 40000),
-            httpOnly: true
-        });
-
-        // saves the data in the database
+        // saves the data in the database if the password and the confirm password matches and if not then you don't get to save the data
         if (password === cPassword) {
+            // authorize the newStudent with the jsonwebtoken
+            const generatedToken = await userCredentials.generateAuthToken();
+
+            // saving the generatedToken into cookies
+            response.cookie("jwt", generatedToken, {
+                expires: new Date(Date.now() + 40 * 1000),
+                httpOnly: true
+            });
+
             const user = await userCredentials.save();
             response.status(200).render("login");
-        } else{
+        } else {
             response.status(400).render("signup");
         }
     } catch (error) {

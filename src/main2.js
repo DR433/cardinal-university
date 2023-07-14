@@ -5,6 +5,7 @@ const cors = require('cors');
 const connectToDatabase = require('./db/db2Conn');
 const router = require("./routes/studentsRouter");
 const hbs = require('hbs');
+const cookieParser = require('cookie-parser');
 
 
 // important variable declerations
@@ -14,10 +15,10 @@ const partialsPath = path.join(__dirname, "../templates/partials");
 const staticPagePath = path.join(__dirname, "../templates/views");
 const staticPagePath2 = path.join(__dirname, "../public");
 
-console.log(staticPagePath);
 
 // Adding Middlewares
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
 app.use(express.static(staticPagePath2));
