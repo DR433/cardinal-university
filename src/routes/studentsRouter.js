@@ -99,10 +99,20 @@ router.post("/signup", async (request, response) => {
     }
 })
 
-// This is the userpage but a get request one
-// router.get("/user", (request, response)=>{
-//     response.send(request.body);
-// })
+// adding a logout route
+router.get("/logout", authentication, async (request, response)=>{
+    try {
+        request.user.tokens = request.user.tokens.filter((tokenObject)=>{
+            return tokenObject.token !== request.token;
+        })
+        response.clearCookie('jwt');
+        await request.user.save();
+        response.status(200).render("login");
+    } catch (error) {
+        console.error(error.message);
+        response.status(400).render("index");
+    }
+})
 
 // Student page to load using async await for post request
 router.post("/students", async (request, response) => {

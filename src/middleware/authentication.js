@@ -10,10 +10,12 @@ const authentication = async(request, response, next) => {
         const token = request.cookies.jwt;
         const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
         const userInfo = await CredentialsCollection.findOne({_id: verifyToken._id});
+        request.token = token;
+        request.user = userInfo;
         next()
     } catch (error) {
         console.error(error.message);
-        response.status(400).send(error.message);
+        response.status(400).render("unAuthorized");
     }
 }
 
